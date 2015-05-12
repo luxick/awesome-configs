@@ -61,6 +61,15 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
 
+    -- Starting programs, using special keys
+    awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
+    awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
+    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
+    awful.key({}, "XF86Display", xrandr),
+    awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn(webbrowser) end),
+    awful.key({ modkey, "Shift" }, "f", function () awful.util.spawn(filebrowser) end),
+    awful.key({ modkey,         }, "s", function () awful.util.spawn("catfish") end),
+
     -- Prompt
     --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,           }, "r", function () awful.util.spawn("dmenu_extended_run") end),
@@ -72,16 +81,6 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end)
-
-    -- Starting programs, using special keys
-    awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
-    awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
-    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
-    awful.key({}, "XF86Display", xrandr),
-    awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn("firefox") end),
-    awful.key({ modkey, "Shift" }, "f", function () awful.util.spawn("thunar") end),
-    awful.key({ modkey,         }, "s", function () awful.util.spawn("catfish") end),
-
 )
 
 clientkeys = awful.util.table.join(
