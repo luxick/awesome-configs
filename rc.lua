@@ -15,7 +15,7 @@ require("vicious")
 -- Variable definitions
 configpath="/home/"..os.getenv("USER").."/.config/awesome/"
 iconpath= configpath.."icons/"
-beautiful.init(configpath.."/themes/zenburn/theme.lua")
+beautiful.init(configpath.."/themes/zenburn-luxick/theme.lua")
 networks = {'eth0','wlan0'}
 
 -- This is used later as the default terminal and editor to run.
