@@ -98,12 +98,12 @@ theme.layout_max           = os.getenv("HOME") .. "/.config/awesome/themes/zenbu
 theme.layout_fullscreen    = os.getenv("HOME") .. "/.config/awesome/themes/zenburn-luxick/layouts/fullscreen.png"
 theme.layout_magnifier     = os.getenv("HOME") .. "/.config/awesome/themes/zenburn-luxick/layouts/magnifier.png"
 theme.layout_floating      = os.getenv("HOME") .. "/.config/awesome/themes/zenburn-luxick/layouts/floating.png"
-theme.layout_termfair      = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/termfairw.png"
-theme.layout_browse        = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/browsew.png"
-theme.layout_gimp          = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/gimpw.png"
-theme.layout_cascade       = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/cascadew.png"
-theme.layout_cascadebrowse = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/cascadebrowsew.png"
-theme.layout_centerwork    = os.getenv("HOME") .. "/.config/awesome/vain/themes/default/layouts/centerworkw.png"
+theme.layout_termfair      = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/termfair.png"
+theme.layout_browse        = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/browse.png"
+theme.layout_gimp          = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/gimp.png"
+theme.layout_cascade       = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/cascade.png"
+theme.layout_cascadebrowse = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/cascadebrowse.png"
+theme.layout_centerwork    = os.getenv("HOME") .. "/.config/awesome/vain/themes/zenburn/layouts/centerwork.png"
 -- }}}
 
 -- {{{ Titlebar

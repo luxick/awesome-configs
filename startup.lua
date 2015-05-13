@@ -21,14 +21,13 @@ do
 end
 
 -- Put everything here, that shoud be executed at awesome startup
-awful.util.spawn_with_shell("nitrogen --restore")
+--awful.util.spawn_with_shell("nitrogen --restore")
 run_once("mpd")
 run_once("keepassx")
 run_once("owncloud")
 run_once("nm-applet")
 run_once("icedove")
 run_once("pidgin")
-run_once("trackma-qt")
 run_once("qbittorrent")
 run_once("xrdb -merge .Xresources")
 run_once("volumeicon")

@@ -83,8 +83,14 @@ for s = 1, screen.count() do
 
     -- Show Wifi SSID
     mywifissid = widget({ type = "textbox"})
-    vicious.register(mywifissid, vicious.widgets.wifi,'wifi: '
-        .. '<span color="' .. beautiful.fg_focus .. '">${ssid}</span> ', 5, "wlan0")
+    vicious.register(mywifissid, vicious.widgets.wifi,
+        function (widget, args)
+            if args["{ssid}"] == "N/A" then
+                return ""
+            else
+                return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> "
+            end
+        end, 5, "wlan0")
 
        
     -- {{{ Network usage
@@ -119,7 +125,7 @@ for s = 1, screen.count() do
     vicious.register(mpdwidget, vicious.widgets.mpd,
         function (widget, args)
             if args["{state}"] == "Stop" then 
-                return "mpd: - "
+                return ""
             else 
                 return 'mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
                 .. args["{Title}"] .. "</span>   "
