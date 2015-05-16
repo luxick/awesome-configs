@@ -90,7 +90,7 @@ for s = 1, screen.count() do
             else
                 return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> "
             end
-        end, 5, "wlan0")
+        end, 3, "wlan0")
 
        
     -- {{{ Network usage
