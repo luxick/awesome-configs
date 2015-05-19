@@ -75,21 +75,21 @@ for s = 1, screen.count() do
     -- {{{CPU and RAM Widgets
     cpuwidget = widget({ type = "textbox" })
     vicious.register(cpuwidget, vicious.widgets.cpu,
-        "cpu: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> ', 3)
+        "cpu: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> | ', 3)
 
     ramwidget = widget({ type = "textbox" })
     vicious.register(ramwidget, vicious.widgets.mem,
-        "ram: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> ', 3)
+        "ram: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> | ', 3)
     
     thermalwidget  = widget({ type = "textbox" })
     vicious.register(thermalwidget, vicious.widgets.thermal,
-    "temp: " .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span> ', 3, "thermal_zone0")
+    "temp: " .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span> | ', 3, "thermal_zone0")
     -- }}}
 
     -- Battery Widget
     battext = widget({ type = "textbox" })
     vicious.register(battext, vicious.widgets.bat, '$1 ' .. '<span color="' .. beautiful.fg_focus
-    .. '">$2%</span>', 61, "BAT0")
+    .. '">$2%</span> | ', 61, "BAT0")
 
     -- Show Wifi SSID
     mywifissid = widget({ type = "textbox"})
@@ -98,16 +98,21 @@ for s = 1, screen.count() do
             if args["{ssid}"] == "N/A" then
                 return ""
             else
-                return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> "
+                return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> | "
             end
         end, 3, "wlan0")
 
+    -- {{{ File System Widget
+    fswidget = widget({ type = "textbox" })
+    vicious.register(fswidget, vicious.widgets.fs,
+    "disk usage: " .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span> | ", 60)
+    -- }}}
        
     -- {{{ Network usage
     function print_net(name, down, up)
         return name .. ': ' ..'↓<span color="'
         .. beautiful.fg_focus ..'">' .. down .. ' KB/s'.. '</span> ↑<span color="'
-        .. beautiful.fg_focus ..'">' .. up  .. ' KB/s'.. '</span> '
+        .. beautiful.fg_focus ..'">' .. up  .. ' KB/s'.. '</span> | '
     end
 
     dnicon = widget({ type = "imagebox" })
@@ -137,16 +142,10 @@ for s = 1, screen.count() do
             if args["{state}"] == "Stop" then 
                 return ""
             else 
-                return 'mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
-                .. args["{Title}"] .. "</span>   "
+                return '| mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
+                .. args["{Title}"] .. "</span> | "
             end
         end, 2)
-    -- }}}
-
-    -- {{{ File System Widget
-    fswidget = widget({ type = "textbox" })
-    vicious.register(fswidget, vicious.widgets.fs,
-    "disk usage: " .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}% ".. "</span> ", 60)
     -- }}}
     
     -- Create the Topbox
