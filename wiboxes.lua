@@ -72,9 +72,19 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Bottom Wibox
-    -- CPU and RAM Widgets
-    mycpuusage = vain.widgets.cpuusage()
-    mymemusage = vain.widgets.memusage()
+    -- {{{CPU and RAM Widgets
+    cpuwidget = widget({ type = "textbox" })
+    vicious.register(cpuwidget, vicious.widgets.cpu,
+        "cpu: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> ', 3)
+
+    ramwidget = widget({ type = "textbox" })
+    vicious.register(ramwidget, vicious.widgets.mem,
+        "ram: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> ', 3)
+    
+    thermalwidget  = widget({ type = "textbox" })
+    vicious.register(thermalwidget, vicious.widgets.thermal,
+    "temp: " .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span> ', 3, "thermal_zone0")
+    -- }}}
 
     -- Battery Widget
     battext = widget({ type = "textbox" })
@@ -132,6 +142,12 @@ for s = 1, screen.count() do
             end
         end, 2)
     -- }}}
+
+    -- {{{ File System Widget
+    fswidget = widget({ type = "textbox" })
+    vicious.register(fswidget, vicious.widgets.fs,
+    "disk usage: " .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}% ".. "</span> ", 60)
+    -- }}}
     
     -- Create the Topbox
     mytopbox[s] = awful.wibox({ position = "top", screen = s })
@@ -156,8 +172,10 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         battext,
-        mycpuusage,
-        mymemusage,
+        thermalwidget,
+        cpuwidget,
+        ramwidget,
+        fswidget,
         netwidget,
         mywifissid,
         mpdwidget,

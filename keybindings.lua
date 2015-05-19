@@ -71,8 +71,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,         }, "s", function () awful.util.spawn("catfish") end),
 
     -- Prompt
-    --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey,           }, "r", function () awful.util.spawn("dmenu_extended_run") end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    --awful.key({ modkey,           }, "r", function () awful.util.spawn("dmenu_extended_run") end),
 
     awful.key({ modkey }, "x",
               function ()
