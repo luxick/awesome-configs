@@ -33,23 +33,26 @@ layouts =
 
 -- Tags
 tags = {
-    names = {1, 2, 3, 4, 5, "term", "www", "mail", "im",}
+    main = {1, 2, 3, 4, 5, "term", "www", "mail", "im",},
+    others = {1, 2, 3, 4, 5, 6, 7, 8, 9,}
 }
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, layouts[1])
+-- Settings for the main screen
+tags[1] = awful.tag(tags.main, 1, layouts[1])
+awful.layout.set(vain.layout.termfair, tags[1][6])
+awful.tag.setnmaster(2, tags[1][6])
+awful.tag.setncol(2, tags[1][6])
 
-    awful.layout.set(vain.layout.termfair, tags[s][6])
-    awful.tag.setnmaster(2, tags[s][6])
-    awful.tag.setncol(2, tags[s][6])
+awful.layout.set(vain.layout.browse, tags[1][7])
+awful.tag.setmwfact(0.5, tags[1][2])
+awful.tag.setncol(1, tags[1][7])
 
-    awful.layout.set(vain.layout.browse, tags[s][7])
-    awful.tag.setmwfact(0.5, tags[s][2])
-    awful.tag.setncol(1, tags[s][7])
+awful.layout.set(vain.layout.browse, tags[1][8])
+awful.tag.setmwfact(0.5, tags[1][2])
+awful.tag.setncol(1, tags[1][8])
 
-    awful.layout.set(vain.layout.browse, tags[s][8])
-    awful.tag.setmwfact(0.5, tags[s][2])
-    awful.tag.setncol(1, tags[s][8])
+-- Additional screens get tags from 1-9
+for s = 2, screen.count() do
+    tags[s] = awful.tag(tags.others, s, layouts[1])
 end
 
 require("functions")

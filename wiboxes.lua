@@ -140,12 +140,14 @@ for s = 1, screen.count() do
     vicious.register(mpdwidget, vicious.widgets.mpd,
         function (widget, args)
             if args["{state}"] == "Stop" then 
-                return ""
+                return "| "
+            elseif args["{Artist}"] == "N/A" then
+                return '| mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Title}"] .. "</span> | "
             else 
                 return '| mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
                 .. args["{Title}"] .. "</span> | "
             end
-        end, 2)
+        end, 1)
     -- }}}
     
     -- Create the Topbox
@@ -170,14 +172,14 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        battext,
-        thermalwidget,
-        cpuwidget,
-        ramwidget,
-        fswidget,
-        netwidget,
-        mywifissid,
-        mpdwidget,
+        s == 1 and battext or nil,
+        s == 1 and thermalwidget or nil,
+        s == 1 and cpuwidget or nil,
+        s == 1 and ramwidget or nil,
+        s == 1 and fswidget or nil,
+        s == 1 and netwidget or nil,
+        s == 1 and mywifissid or nil,
+        s == 1 and mpdwidget or nil,
         layout = awful.widget.layout.horizontal.rightleft
     }
 
