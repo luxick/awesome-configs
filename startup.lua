@@ -33,8 +33,8 @@ run_once("volumeicon")
 run_once("udisks-glue")
 -- Script for using trackpall+middel mouse button to scroll
 run_once("trackscroll")
--- compose Unicode using right control key
-run_once("setxkbmap -option compose:rctrl")
+-- compose Unicode using right super key
+run_once("setxkbmap -option compose:rwin")
 -- prevent Java Swing applications from fucking up because of tiling
 run_once("wmname LG3D")
 

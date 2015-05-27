@@ -69,6 +69,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn(webbrowser) end),
     awful.key({ modkey, "Shift" }, "f", function () awful.util.spawn(filebrowser) end),
     awful.key({ modkey,         }, "s", function () awful.util.spawn("catfish") end),
+    awful.key({ modkey,         }, "v", function () awful.util.spawn("pavucontrol") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
