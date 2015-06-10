@@ -8,7 +8,7 @@ end
 -- Handle runtime errors after startup
 do
     local in_error = false
-    awesome.add_signal("debug::error", function (err)
+    awesome.connect_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
@@ -34,7 +34,7 @@ run_once("udisks-glue")
 -- Script for using trackpall+middel mouse button to scroll
 run_once("trackscroll")
 -- compose Unicode using right super key
-run_once("setxkbmap -option compose:rwin")
+run_once("setxkbmap -option compose:ralt")
 -- prevent Java Swing applications from fucking up because of tiling
 run_once("wmname LG3D")
 

@@ -1,16 +1,12 @@
--- Standard awesome library
-require("awful")
-require("awful.autofocus")
-require("awful.rules")
--- Theme handling library
-require("beautiful")
--- Notification library
-require("naughty")
-
--- Load Debian menu entries
-require("debian.menu")
-require("vain")
-require("vicious")
+awful           = require("awful")
+wibox           = require ('wibox')
+awful.autofocus = require("awful.autofocus")
+awful.rules     = require("awful.rules")
+awful.util      = require("awful.util")
+beautiful       = require("beautiful")
+naughty         = require("naughty")
+vain            = require("vain")
+vicious         = require("vicious")
 
 -- Variable definitions
 configpath="/home/"..os.getenv("USER").."/.config/awesome/"
@@ -56,7 +52,6 @@ for s = 2, screen.count() do
 end
 
 require("functions")
-require("menu")
 require("keybindings")
 require("wiboxes")
 require("startup")

@@ -103,7 +103,7 @@ function xrandr()
 
    -- Build the list of choices
    if not state.iterator then
-      state.iterator = awful.util.table.cycle(menu(),
+      state.iterator = awful.util.table.iterate(menu(),
 					function() return true end)
    end
 
@@ -125,7 +125,7 @@ function xrandr()
 
    -- Setup the timer
    state.timer = timer { timeout = 2}
-   state.timer:add_signal("timeout",
+   state.timer:connect_signal("timeout",
 			  function()
 			     state.timer:stop()
 			     state.timer = nil

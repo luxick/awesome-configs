@@ -9,7 +9,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { "awsetbg /home/"..os.getenv("USER").."/.config/awesome/themes/zenburn-luxick/zenburn-background.png" }
+theme.wallpaper = { "/home/"..os.getenv("USER").."/.config/awesome/themes/zenburn-luxick/zenburn-background.png" }
 -- }}}
 
 -- {{{ Styles
