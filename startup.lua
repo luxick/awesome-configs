@@ -20,6 +20,8 @@ do
     end)
 end
 
+awful.util.spawn_with_shell("feh --bg-scale /home/"..os.getenv("USER").."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
+
 -- Put everything here, that shoud be executed at awesome startup
 --awful.util.spawn_with_shell("nitrogen --restore")
 run_once("mpd")
@@ -33,8 +35,9 @@ run_once("volumeicon")
 run_once("udisks-glue")
 -- Script for using trackpall+middel mouse button to scroll
 run_once("trackscroll")
--- compose Unicode using right super key
-run_once("setxkbmap -option compose:ralt")
+run_once("trackpadtoggle")
+-- compose Unicode using right ctrl key
+run_once("setxkbmap -option compose:rcrtl")
 -- prevent Java Swing applications from fucking up because of tiling
 run_once("wmname LG3D")
 

@@ -9,15 +9,17 @@ vain            = require("vain")
 vicious         = require("vicious")
 
 -- Variable definitions
-configpath="/home/"..os.getenv("USER").."/.config/awesome/"
-iconpath= configpath.."icons/"
+configpath      = "/home/"..os.getenv("USER").."/.config/awesome/"
+iconpath        = configpath.."icons/"
+networks        = {'eth0','wlan0'}
+webbrowser      = "firefox"
+filebrowser     = "thunar"
+terminal        = "/usr/bin/urxvt"
+editor          = os.getenv("EDITOR") or "editor"
+editor_cmd      = terminal .. " -e " .. editor
+
 beautiful.init(configpath.."/themes/zenburn-luxick/theme.lua")
-networks = {'eth0','wlan0'}
-webbrowser = "firefox"
-filebrowser = "thunar"
-terminal = "/usr/bin/urxvt"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -30,7 +32,7 @@ layouts =
 -- Tags
 tags = {
     main = {1, 2, 3, 4, 5, "term", "www", "mail", "im",},
-    others = {1, 2, 3, 4, 5, 6, 7, 8, 9,}
+    others = {1, 2, 3, 4,}
 }
 -- Settings for the main screen
 tags[1] = awful.tag(tags.main, 1, layouts[1])

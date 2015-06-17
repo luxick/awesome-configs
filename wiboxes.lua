@@ -50,7 +50,7 @@ for s = 1, screen.count() do
 
     -- Top Wibox
     -- Create a textclock widget
-    mytextclock = awful.widget.textclock("time: " .. '<span color="' .. beautiful.fg_focus .. '">%H:%M %d/%m/%y</span> | ', 10)
+    mytextclock = awful.widget.textclock(" %H:%M " .. '<span color="' .. beautiful.fg_focus .. '">%d/%m/%y</span> | ', 10)
 
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -87,14 +87,14 @@ for s = 1, screen.count() do
     -- Battery Widget
     battext = wibox.widget.textbox()
     vicious.register(battext, vicious.widgets.bat, '$1 ' .. '<span color="' .. beautiful.fg_focus
-    .. '">$2%</span> | ', 61, "BAT0")
+    .. '">$2%</span>' .. ' $3' .. ' | ', 61, "BAT0")
 
     -- Show Wifi SSID
     mywifissid = wibox.widget.textbox()
     vicious.register(mywifissid, vicious.widgets.wifi,
         function (widget, args)
             if args["{ssid}"] == "N/A" then
-                return ""
+                return ''
             else
                 return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> | "
             end
@@ -124,6 +124,7 @@ for s = 1, screen.count() do
                     return print_net(device, args["{"..device .." down_kb}"], args["{"..device.." up_kb}"])
                 end
             end
+            return ''
         end, 3)
     -- }}}
 
@@ -150,8 +151,10 @@ for s = 1, screen.count() do
 
     -- Top Boxes
     local top_layout_left = wibox.layout.fixed.horizontal()
-    top_layout_left:add(mylayoutbox[s])
+    --top_layout_left:add(mylayoutbox[s])
+    top_layout_left:add(mytextclock)
     if s == 1 then top_layout_left:add(wibox.widget.systray()) end
+    if s == 1 then top_layout_left:add(wibox.widget.textbox(" | ")) end
 
     -- Bottom Boxes
     local bottom_layout_left = wibox.layout.fixed.horizontal()
@@ -167,8 +170,6 @@ for s = 1, screen.count() do
     bottom_layout_right:add(cpuwidget)
     bottom_layout_right:add(thermalwidget)
     bottom_layout_right:add(battext)
-    bottom_layout_right:add(mytextclock)
-    --if s == 1 then bottom_layout_right:add(wibox.widget.systray()) end
 
 
     -- Bring Top Box Together
