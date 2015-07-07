@@ -5,6 +5,7 @@ awful.rules     = require("awful.rules")
 awful.util      = require("awful.util")
 beautiful       = require("beautiful")
 naughty         = require("naughty")
+lain            = require("lain")
 vain            = require("vain")
 vicious         = require("vicious")
 
@@ -24,7 +25,8 @@ beautiful.init(configpath.."/themes/zenburn-luxick/theme.lua")
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.tile,
+    lain.layout.uselesstile,
+    --awful.layout.suit.tile,
     awful.layout.suit.max,
     awful.layout.suit.floating
 }
@@ -36,7 +38,7 @@ tags = {
 }
 -- Settings for the main screen
 tags[1] = awful.tag(tags.main, 1, layouts[1])
-awful.layout.set(vain.layout.termfair, tags[1][6])
+awful.layout.set(lain.layout.uselessfair, tags[1][6])
 awful.tag.setnmaster(2, tags[1][6])
 awful.tag.setncol(2, tags[1][6])
 

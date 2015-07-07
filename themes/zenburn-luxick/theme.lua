@@ -13,7 +13,8 @@ theme.wallpaper = { "/home/"..os.getenv("USER").."/.config/awesome/themes/zenbur
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Ubuntu 8"
+theme.font      = "Terminus 8"
+theme.useless_gap_width = 10
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
@@ -22,7 +23,7 @@ theme.fg_urgent = "#CC9393"
 theme.bg_urgent = "#3F3F3F"
 
 theme.bg_normal = "#202020"
-theme.bg_focus  = "#333333"
+theme.bg_focus  = "#202020"
 -- }}}
 
 -- {{{ Borders

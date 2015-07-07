@@ -50,7 +50,7 @@ for s = 1, screen.count() do
 
     -- Top Wibox
     -- Create a textclock widget
-    mytextclock = awful.widget.textclock(" %H:%M " .. '<span color="' .. beautiful.fg_focus .. '">%d/%m/%y</span> | ', 10)
+    mytextclock = awful.widget.textclock("|%H:%M " .. '<span color="' .. beautiful.fg_focus .. '">%d/%m/%y</span>|', 10)
 
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -73,21 +73,30 @@ for s = 1, screen.count() do
     -- {{{CPU and RAM Widgets
     cpuwidget = wibox.widget.textbox()
     vicious.register(cpuwidget, vicious.widgets.cpu,
-        "cpu: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> | ', 3)
+        "cpu:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>|', 3)
 
     ramwidget = wibox.widget.textbox()
     vicious.register(ramwidget, vicious.widgets.mem,
-        "ram: " .. '<span color="' .. beautiful.fg_focus .. '">$1%</span> | ', 3)
-    
+        "ram:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>|', 3)
+
     thermalwidget  = wibox.widget.textbox()
     vicious.register(thermalwidget, vicious.widgets.thermal,
-    "temp: " .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span> | ', 3, "thermal_zone0")
+    "temp:" .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span>|', 3, "thermal_zone0")
     -- }}}
 
     -- Battery Widget
     battext = wibox.widget.textbox()
-    vicious.register(battext, vicious.widgets.bat, '$1 ' .. '<span color="' .. beautiful.fg_focus
-    .. '">$2%</span>' .. ' $3' .. ' | ', 61, "BAT0")
+    vicious.register(battext, vicious.widgets.bat,
+        function(widget, args)
+            if args[3] == "N/A" then
+                return 'batt:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' .. '|'
+            elseif args[2] == "100" then
+                return args[1] .. '|'
+            else
+                return 'bat:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' ..'|'
+                        .. args[1]..'<span color="' .. beautiful.fg_focus .. '">'..args[3]..'</span>' .. '|'
+            end
+        end, 1, "BAT0")
 
     -- Show Wifi SSID
     mywifissid = wibox.widget.textbox()
@@ -96,21 +105,21 @@ for s = 1, screen.count() do
             if args["{ssid}"] == "N/A" then
                 return ''
             else
-                return 'wifi: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span> | "
+                return 'wifi:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>|"
             end
         end, 3, "wlan0")
 
     -- {{{ File System Widget
     fswidget = wibox.widget.textbox()
     vicious.register(fswidget, vicious.widgets.fs,
-    "disk usage: " .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span> | ", 60)
+    "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>|", 60)
     -- }}}
-       
+
     -- {{{ Network usage
     function print_net(name, down, up)
-        return name .. ': ' ..'↓<span color="'
-        .. beautiful.fg_focus ..'">' .. down .. ' KB/s'.. '</span> ↑<span color="'
-        .. beautiful.fg_focus ..'">' .. up  .. ' KB/s'.. '</span> | '
+        return name .. ':' ..'↓<span color="'
+        .. beautiful.fg_focus ..'">' .. down .. ' MB/s'.. '</span> ↑<span color="'
+        .. beautiful.fg_focus ..'">' .. up  .. ' MB/s'.. '</span>|'
     end
 
     -- Initialize widget
@@ -121,7 +130,7 @@ for s = 1, screen.count() do
             for _,device in pairs(networks) do
                 if tonumber(args["{".. device .." carrier}"]) > 0 then
                     netwidget.found = true
-                    return print_net(device, args["{"..device .." down_kb}"], args["{"..device.." up_kb}"])
+                    return print_net(device, args["{"..device .." down_mb}"], args["{"..device.." up_mb}"])
                 end
             end
             return ''
@@ -133,13 +142,13 @@ for s = 1, screen.count() do
     -- Register widget
     vicious.register(mpdwidget, vicious.widgets.mpd,
         function (widget, args)
-            if args["{state}"] == "Stop" then 
-                return "| "
+            if args["{state}"] == "Stop" then
+                return "|"
             elseif args["{Artist}"] == "N/A" then
-                return '| mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Title}"] .. "</span> | "
-            else 
-                return '| mpd: ' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
-                .. args["{Title}"] .. "</span> | "
+                return '|mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Title}"] .. "</span>|"
+            else
+                return '|mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
+                .. args["{Title}"] .. "</span>|"
             end
         end, 1)
     -- }}}
@@ -151,16 +160,15 @@ for s = 1, screen.count() do
 
     -- Top Boxes
     local top_layout_left = wibox.layout.fixed.horizontal()
-    --top_layout_left:add(mylayoutbox[s])
-    top_layout_left:add(mytextclock)
+    if s == 1 then top_layout_left:add(wibox.widget.textbox("|")) end
     if s == 1 then top_layout_left:add(wibox.widget.systray()) end
-    if s == 1 then top_layout_left:add(wibox.widget.textbox(" | ")) end
+    top_layout_left:add(mytextclock)
 
     -- Bottom Boxes
     local bottom_layout_left = wibox.layout.fixed.horizontal()
     bottom_layout_left:add(mytaglist[s])
     bottom_layout_left:add(mypromptbox[s])
-    
+
     local bottom_layout_right = wibox.layout.fixed.horizontal()
     bottom_layout_right:add(mpdwidget)
     bottom_layout_right:add(mywifissid)
@@ -174,14 +182,15 @@ for s = 1, screen.count() do
 
     -- Bring Top Box Together
     local top_layout = wibox.layout.align.horizontal()
-    top_layout:set_left(top_layout_left)
-    top_layout:set_right(mytasklist[s])
-    
+    --top_layout:set_left(mylayoutbox[s])
+    top_layout:set_middle(mytasklist[s])
+    top_layout:set_right(top_layout_left)
+
     -- Bring Bottom Box Together
     local bottom_layout = wibox.layout.align.horizontal()
     bottom_layout:set_left(bottom_layout_left)
     if s == 1 then bottom_layout:set_right(bottom_layout_right) end
-    
+
     -- Add widgets to the Topbox
     mytopbox[s]:set_widget(top_layout)
     -- Add Widgets to Bottombox
