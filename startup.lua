@@ -20,8 +20,8 @@ do
     end)
 end
 
-awful.util.spawn_with_shell("feh --bg-scale /home/"..os.getenv("USER")
-    .."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
+awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
+    .."/.config/awesome/themes/zenburn-luxick/zenburn-background-new.png")
 
 -- Put everything here, that shoud be executed at awesome startup
 --awful.util.spawn_with_shell("nitrogen --restore")
@@ -34,7 +34,6 @@ run_once("icedove")
 --run_once("pidgin")
 run_once("xrdb -merge .Xresources")
 run_once("volumeicon")
-run_once("udisks-glue")
 -- Script for using trackpall+middel mouse button to scroll
 run_once("trackscroll")
 run_once("trackpadtoggle")

@@ -10,11 +10,11 @@ vain            = require("vain")
 vicious         = require("vicious")
 
 -- Variable definitions
-configpath      = "/home/"..os.getenv("USER").."/.config/awesome/"
+configpath      = os.getenv("HOME").."/.config/awesome/"
 iconpath        = configpath.."icons/"
 networks        = {'eth0','wlan0'}
 webbrowser      = "firefox"
-filebrowser     = "thunar"
+filebrowser     = "spacefm"
 terminal        = "/usr/bin/urxvt"
 editor          = os.getenv("EDITOR") or "editor"
 editor_cmd      = terminal .. " -e " .. editor

@@ -1,5 +1,5 @@
 -------------------------------
---  "Zenburn" awesome theme  -- 
+--  "Zenburn" awesome theme  --
 --    By Adrian C. (anrxc)   --
 --      modified by luxick   --
 -------------------------------
@@ -9,7 +9,8 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper = { "/home/"..os.getenv("USER").."/.config/awesome/themes/zenburn-luxick/zenburn-background.png" }
+theme.wallpaper = { os.getenv("HOME").."/.config/awesome/themes/zenburn-luxick/zenburn-background-new.png" }
+theme.tasklist_disable_icon = true
 -- }}}
 
 -- {{{ Styles

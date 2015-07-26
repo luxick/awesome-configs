@@ -142,6 +142,9 @@ for s = 1, screen.count() do
     -- Register widget
     vicious.register(mpdwidget, vicious.widgets.mpd,
         function (widget, args)
+            if args["{state}"] == "N/A" then
+                return "|"
+            end
             if args["{state}"] == "Stop" then
                 return "|"
             elseif args["{Artist}"] == "N/A" then
