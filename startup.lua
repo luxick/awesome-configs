@@ -21,16 +21,17 @@ do
 end
 
 awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
-    .."/.config/awesome/themes/zenburn-luxick/zenburn-background-new.png")
+    .."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
 
 -- Put everything here, that shoud be executed at awesome startup
 --awful.util.spawn_with_shell("nitrogen --restore")
 run_once("mpd")
 run_once("compton")
 run_once("keepassx")
+run_once("owncloud")
 run_once("telegram")
 run_once("nm-applet")
-run_once("icedove")
+run_once("thunderbird")
 --run_once("pidgin")
 run_once("xrdb -merge .Xresources")
 run_once("volumeicon")
@@ -40,4 +41,5 @@ run_once("trackpadtoggle")
 -- prevent Java Swing applications from fucking up because of tiling
 run_once("wmname LG3D")
 -- compose Unicode using right ctrl key
-awful.util.spawn_with_shell("setxkbmap -option compose:rcrtl")
+run_once("setxkbmap -option compose:rctrl")
+run_once("xrandr --output HDMI3 --primary")

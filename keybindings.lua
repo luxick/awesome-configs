@@ -49,10 +49,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    awful.key({ modkey, "Shift"   }, "Right", function () awful.screen.focus_relative(1) end),
+    awful.key({ modkey, "Shift"   }, "o", function () awful.screen.focus_relative(1) end),
     awful.key({ modkey, "Shift"   }, "Left" , function () awful.screen.focus_relative(-1) end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
+    awful.key({ modkey, "Control" }, "i", sysbox),
 
     --mpd controls
 
@@ -64,24 +65,18 @@ globalkeys = awful.util.table.join(
     -- Starting programs, using special keys
     awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
-    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
+    --awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
+    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -i images/keepout.png -d -I 5 -e -c 000000") end),
+    awful.key({modkey,          }, "F2", function () awful.util.spawn("i3lock -i images/keepout.png -d -I 5 -e -c 000000") end),
     awful.key({}, "XF86Display", xrandr),
+    awful.key({ modkey,         }, "F7", xrandr),
     awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn(webbrowser) end),
     awful.key({ modkey, "Shift" }, "f", function () awful.util.spawn(filebrowser) end),
     awful.key({ modkey,         }, "s", function () awful.util.spawn("catfish") end),
     awful.key({ modkey,         }, "v", function () awful.util.spawn("pavucontrol") end),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-    --awful.key({ modkey,           }, "r", function () awful.util.spawn("dmenu_extended_run") end),
-
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end)
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end)
 )
 
 clientkeys = awful.util.table.join(

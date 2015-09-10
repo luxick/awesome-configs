@@ -105,9 +105,9 @@ for s = 1, screen.count() do
             if args["{ssid}"] == "N/A" then
                 return ''
             else
-                return 'wifi:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>|"
+                return 'ssid:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>|"
             end
-        end, 3, "wlan0")
+        end, 3, "wlp3s0")
 
     -- {{{ File System Widget
     fswidget = wibox.widget.textbox()
@@ -121,20 +121,28 @@ for s = 1, screen.count() do
         .. beautiful.fg_focus ..'">' .. down .. ' MB/s'.. '</span> ↑<span color="'
         .. beautiful.fg_focus ..'">' .. up  .. ' MB/s'.. '</span>|'
     end
-
     -- Initialize widget
-    netwidget = wibox.widget.textbox()
+   netwidget = wibox.widget.textbox()
     -- Register widget
     vicious.register(netwidget, vicious.widgets.net,
-        function (widget, args)
-            for _,device in pairs(networks) do
-                if tonumber(args["{".. device .." carrier}"]) > 0 then
-                    netwidget.found = true
-                    return print_net(device, args["{"..device .." down_mb}"], args["{"..device.." up_mb}"])
-                end
-            end
-            return ''
-        end, 3)
+    function (widget, args)
+        local ethdown = args["{enp0s25 down_mb}"]
+        local ethup = args["{enp0s25 up_mb}"]
+        local ethactive = (tonumber(args["{enp0s25 carrier}"]) == 1)
+        local wifidown = args["{wlp3s0 down_mb}"]
+        local wifiup = args["{wlp3s0 up_mb}"]
+        local wifiactive = (tonumber(args["{wlp3s0 carrier}"]) == 1)
+
+        local down = ethdown
+        local up = ethup
+        local ifname = "wired"
+        if (not ethactive and wifiactive) then
+            down = wifidown
+            up = wifiup
+            ifname = "wifi"
+        end
+        return print_net(ifname, down, up)
+    end, 3)
     -- }}}
 
     -- {{{ MPD Widget
@@ -181,7 +189,6 @@ for s = 1, screen.count() do
     bottom_layout_right:add(cpuwidget)
     bottom_layout_right:add(thermalwidget)
     bottom_layout_right:add(battext)
-
 
     -- Bring Top Box Together
     local top_layout = wibox.layout.align.horizontal()

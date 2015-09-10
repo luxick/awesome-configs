@@ -168,8 +168,7 @@ function memusage(args)
         used = mem.total - (mem.free + mem.buf + mem.cache)
         swapused = mem.swap - mem.swapf
         fmt = "%" .. string.len(mem.total) .. ".0f/%.0f MB"
-        widg.text = 'ram:'
-		    ..' <span color="' .. beautiful.fg_focus .. '">'
+        widg.text = ' <span color="' .. beautiful.fg_urgent .. '">'
                     .. string.format(fmt, used, mem.total) .. '</span> '
 
         if show_swap
@@ -383,7 +382,7 @@ function volume(args)
 
         awful.button({}, 2,
             function()
-                awful.util.spawn('pavucontrol')
+                run_in_terminal('alsamixer')
             end),
 
         awful.button({}, 3,
@@ -510,7 +509,7 @@ function net(args)
 
             val = ((now_r - net_last_r[iface]) / delta / 1e3)
             text = text
-                   .. '<span color="' .. beautiful.fg_focus .. '">'
+                   .. '<span color="' .. beautiful.fg_urgent .. '">'
                    .. '↓('
                    .. vain.util.paddivnum(val, 5, 1)
                    .. ')'

@@ -137,3 +137,37 @@ function xrandr()
    state.timer:start()
 end
 -- }}}
+
+
+function sysbox()
+   -- Gather Infos
+   local ostmp = wibox.widget.textbox()
+   vicious.register(ostmp, vicious.widgets.os,
+         "$1 $2 $3 $4 $5 $6")
+
+   osinfo = ostmp.text
+
+   naughty.notify({title="System Information",
+            position="bottom_right",
+            timeout=-1,
+            ontop=true,
+            font = "Ubuntu 10",
+            screen = mouse.screen,
+            text=osinfo})
+end
+
+-- ips widget: show internal and external ips as a tooltip on
+-- an icon.
+
+-- function to call bash script and return its output.
+function get_ips()
+    local fd = io.popen("/home/luxick/bin/get_ip")
+    local str = fd:read("*all")
+    return str 
+end
+
+function getinfo()
+   local str = ""
+
+   return str
+end

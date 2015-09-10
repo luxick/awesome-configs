@@ -19,7 +19,7 @@ theme.useless_gap_width = 10
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
-theme.fg_focus  = "#FF3D3D"
+theme.fg_focus  = "#00FFFF"
 theme.fg_urgent = "#CC9393"
 theme.bg_urgent = "#3F3F3F"
 
@@ -30,7 +30,7 @@ theme.bg_focus  = "#202020"
 -- {{{ Borders
 theme.border_width  = "1"
 theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#922420"
+theme.border_focus  = "#00FFFF"
 theme.border_marked = "#CC9393"
 
 -- }}}

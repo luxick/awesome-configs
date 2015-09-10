@@ -27,9 +27,7 @@ function arrange(p)
 
     -- A useless gap (like the dwm patch) can be defined with
     -- beautiful.useless_gap_width .
-    --local useless_gap = tonumber(beautiful.useless_gap_width)
-    local useless_gap = 0
-
+    local useless_gap = tonumber(beautiful.useless_gap_width)
     if useless_gap == nil
     then
         useless_gap = 0

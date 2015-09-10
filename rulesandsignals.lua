@@ -11,14 +11,10 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Pidgin" },
       properties = { floating = false, tag = tags[1][9] } },
-    { rule = { class = "Telegram" },
+    { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][9] } },
-    { rule = { class = "whatsappfordesktop" },
-      properties = { tag = tags[1][9] } },
-    { rule = { class = "Icedove" },
-      properties = { tag = tags[1][8] } },
     { rule = { class = "Firefox" },
-      properties = { tag = tags[1][7] } },
+      properties = { tag = tags[1][8] } },
 }
 -- }}}
 
