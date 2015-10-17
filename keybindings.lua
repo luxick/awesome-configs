@@ -53,7 +53,22 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "Left" , function () awful.screen.focus_relative(-1) end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
-    awful.key({ modkey, "Control" }, "i", sysbox),
+
+    awful.key({ modkey, "Shift"   }, "p", 
+        function () 
+            awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
+            .."/images/wallpapers/2015/0a931a48bbe3e4fc6c7ffb7b74dd701a.jpg")
+        end),
+    awful.key({ modkey, "Control" }, "p", 
+        function () 
+            awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
+            .."/images/wallpapers/shinsekai1.jpg")
+        end),
+    awful.key({ modkey,           }, "p", 
+        function () 
+            awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
+            .."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
+        end),
 
     --mpd controls
 

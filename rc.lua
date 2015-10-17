@@ -13,9 +13,8 @@ blingbling		= require("blingbling")
 -- Variable definitions
 configpath      = os.getenv("HOME").."/.config/awesome/"
 iconpath        = configpath.."icons/"
-networks        = {'eth0','wlan0'}
 webbrowser      = "firefox"
-filebrowser     = "thunar"
+filebrowser     = "doublecmd"
 terminal        = "/usr/bin/urxvt"
 editor          = os.getenv("EDITOR") or "editor"
 editor_cmd      = terminal .. " -e " .. editor
@@ -43,11 +42,11 @@ awful.layout.set(lain.layout.uselessfair, tags[1][7])
 awful.tag.setnmaster(2, tags[1][7])
 awful.tag.setncol(2, tags[1][7])
 
-awful.layout.set(awful.layout.suit.tile, tags[1][8])
+awful.layout.set(awful.layout.suit.max, tags[1][8])
 --awful.tag.setmwfact(0.5, tags[1][2])
 --awful.tag.setncol(1, tags[1][7])
 
-awful.layout.set(awful.layout.suit.tile, tags[1][9])
+awful.layout.set(awful.layout.suit.max, tags[1][9])
 --awful.tag.setmwfact(0.5, tags[1][2])
 --awful.tag.setncol(1, tags[1][8])
 

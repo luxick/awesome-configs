@@ -113,6 +113,9 @@ for s = 1, screen.count() do
     fswidget = wibox.widget.textbox()
     vicious.register(fswidget, vicious.widgets.fs,
     "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>|", 60)
+    ubaywidget = wibox.widget.textbox()
+    vicious.register(ubaywidget, vicious.widgets.fs,
+    "ubay:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/mnt/ultrabay used_p}%".. "</span>|", 60)
     -- }}}
 
     -- {{{ Network usage
@@ -185,6 +188,7 @@ for s = 1, screen.count() do
     bottom_layout_right:add(mywifissid)
     bottom_layout_right:add(netwidget)
     bottom_layout_right:add(fswidget)
+    bottom_layout_right:add(ubaywidget)
     bottom_layout_right:add(ramwidget)
     bottom_layout_right:add(cpuwidget)
     bottom_layout_right:add(thermalwidget)
