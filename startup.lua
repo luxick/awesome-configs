@@ -19,10 +19,6 @@ do
         in_error = false
     end)
 end
-
--- awful.util.spawn_with_shell("feh --bg-scale "..os.getenv("HOME")
---     .."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
-
 -- Put everything here, that shoud be executed at awesome startup
 run_once("mpd")
 run_once("compton")
@@ -44,3 +40,5 @@ run_once("setxkbmap -option compose:rctrl")
 run_once("xrandr --output HDMI3 --primary")
 run_once("disable_dpms")
 run_once("redshift-gtk")
+
+update_wallpaper()

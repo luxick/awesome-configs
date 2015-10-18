@@ -171,3 +171,18 @@ function getinfo()
 
    return str
 end
+
+function update_wallpaper()
+  local f = io.open(os.getenv("HOME")..'/.config/awesome/wall.txt', "r")
+  local wallpaper = f:read("*all")
+  f:close()
+  awful.util.spawn_with_shell("feh --bg-scale "..wallpaper)
+end
+
+function new_wallpaper(path_to_new_wallpaper)
+  local f = io.open(os.getenv("HOME")..'/.config/awesome/wall.txt', "w")
+  io.output(f)
+  io.write(path_to_new_wallpaper)
+  f:close()
+  update_wallpaper()
+end
