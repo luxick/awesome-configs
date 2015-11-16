@@ -27,12 +27,10 @@ run_once("owncloud")
 run_once("telegram")
 run_once("nm-applet")
 run_once("thunderbird")
+run_once("firefox")
 --run_once("pidgin")
 run_once("xrdb -merge .Xresources")
 run_once("volumeicon")
--- Script for using trackpall+middel mouse button to scroll
-run_once("trackscroll")
-run_once("trackpadtoggle")
 -- prevent Java Swing applications from fucking up because of tiling
 run_once("wmname LG3D")
 -- compose Unicode using right ctrl key
@@ -40,5 +38,6 @@ run_once("setxkbmap -option compose:rctrl")
 run_once("xrandr --output HDMI3 --primary")
 run_once("disable_dpms")
 run_once("redshift-gtk")
-
+-- Disable Touchpad by Default
+-- run_once("touchpadtoggle")
 update_wallpaper()

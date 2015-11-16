@@ -7,7 +7,6 @@ beautiful       = require("beautiful")
 naughty         = require("naughty")
 vain            = require("vain")
 vicious         = require("vicious")
-blingbling		= require("blingbling")
 
 -- Variable definitions
 configpath      = os.getenv("HOME").."/.config/awesome/"
@@ -33,8 +32,8 @@ layouts =
 
 -- Tags
 tags = {
-    main = {1, 2, 3, 4, 5, 6, "term", "www", "mail"},
-    others = {1, 2, 3, 4,}
+    main = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "term", "www", "mail"},
+    others = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ",}
 }
 -- Settings for the main screen
 tags[1] = awful.tag(tags.main, 1, layouts[1])

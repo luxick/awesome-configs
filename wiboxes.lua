@@ -4,7 +4,7 @@ mybottombox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
-
+local iswificarrier = 0
 
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
@@ -102,7 +102,7 @@ for s = 1, screen.count() do
     mywifissid = wibox.widget.textbox()
     vicious.register(mywifissid, vicious.widgets.wifi,
         function (widget, args)
-            if args["{ssid}"] == "N/A" then
+            if args["{ssid}"] == "N/A" or not iswificarrier then
                 return ''
             else
                 return 'ssid:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>|"
@@ -139,10 +139,12 @@ for s = 1, screen.count() do
         local down = ethdown
         local up = ethup
         local ifname = "wired"
+        iswificarrier = false
         if (not ethactive and wifiactive) then
             down = wifidown
             up = wifiup
             ifname = "wifi"
+            iswificarrier = true
         end
         return print_net(ifname, down, up)
     end, 3)

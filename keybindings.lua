@@ -66,6 +66,10 @@ globalkeys = awful.util.table.join(
         function () 
             new_wallpaper(os.getenv("HOME").."/.config/awesome/themes/zenburn-luxick/zenburn-background.png")
         end),
+    awful.key({ modkey,           }, "[", 
+        function () 
+            new_wallpaper(os.getenv("HOME").."/images/wallpapers/2015/dbe038_5732645.jpg")
+        end),
 
     --mpd controls
 
@@ -78,8 +82,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
     --awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
-    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -i images/keepout.png -d -I 5 -e -c 000000") end),
-    awful.key({modkey,          }, "F2", function () awful.util.spawn("i3lock -i images/keepout.png -d -I 5 -e -c 000000") end),
+    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("dm-tool lock") end),
+    awful.key({modkey,          }, "F2", function () awful.util.spawn("dm-tool lock") end),
     awful.key({}, "XF86Display", xrandr),
     awful.key({ modkey,         }, "F7", xrandr),
     awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn(webbrowser) end),
