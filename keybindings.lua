@@ -81,8 +81,8 @@ globalkeys = awful.util.table.join(
     -- Starting programs, using special keys
     awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
-    --awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -e -c 000000") end),
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("dm-tool lock") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn("fanspeed") end),
     awful.key({modkey,          }, "F2", function () awful.util.spawn("dm-tool lock") end),
     awful.key({}, "XF86Display", xrandr),
     awful.key({ modkey,         }, "F7", xrandr),
@@ -158,4 +158,46 @@ end
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ modkey }, 3, awful.mouse.client.resize)
+)
+
+mytaglist.buttons = awful.util.table.join(
+                    awful.button({ }, 1, awful.tag.viewonly),
+                    awful.button({ modkey }, 1, awful.client.movetotag),
+                    awful.button({ }, 3, awful.tag.viewtoggle),
+                    awful.button({ modkey }, 3, awful.client.toggletag),
+                    awful.button({ }, 4, awful.tag.viewnext),
+                    awful.button({ }, 5, awful.tag.viewprev)
+                    )
+
+
+mytasklist.buttons = awful.util.table.join(
+                     awful.button({ }, 1, function (c)
+                                              if c == client.focus then
+                                                  c.minimized = true
+                                              else
+                                                  if not c:isvisible() then
+                                                      awful.tag.viewonly(c:tags()[1])
+                                                  end
+                                                  -- This will also un-minimize
+                                                  -- the client, if needed
+                                                  client.focus = c
+                                                  c:raise()
+                                              end
+                                          end),
+                     awful.button({ }, 3, function ()
+                                              if instance then
+                                                  instance:hide()
+                                                  instance = nil
+                                              else
+                                                  instance = awful.menu.clients({ width=250 })
+                                              end
+                                          end),
+                     awful.button({ }, 4, function ()
+                                              awful.client.focus.byidx(1)
+                                              if client.focus then client.focus:raise() end
+                                          end),
+                     awful.button({ }, 5, function ()
+                                              awful.client.focus.byidx(-1)
+                                              if client.focus then client.focus:raise() end
+                                          end))

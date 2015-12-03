@@ -32,7 +32,7 @@ layouts =
 
 -- Tags
 tags = {
-    main = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "term", "www", "mail"},
+    main = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "mpd", "term", "www", "mail"},
     others = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ",}
 }
 -- Settings for the main screen
@@ -56,8 +56,8 @@ for s = 2, screen.count() do
 end
 
 require("functions")
-require("keybindings")
 require("wiboxes")
+require("keybindings")
 require("startup")
 require("rulesandsignals")
 

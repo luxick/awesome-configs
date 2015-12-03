@@ -5,46 +5,7 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 local iswificarrier = 0
-
-mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, awful.tag.viewnext),
-                    awful.button({ }, 5, awful.tag.viewprev)
-                    )
 mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
 
 for s = 1, screen.count() do
 
@@ -110,12 +71,12 @@ for s = 1, screen.count() do
         end, 3, "wlp3s0")
 
     -- {{{ File System Widget
-    fswidget = wibox.widget.textbox()
-    vicious.register(fswidget, vicious.widgets.fs,
-    "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>|", 60)
-    ubaywidget = wibox.widget.textbox()
-    vicious.register(ubaywidget, vicious.widgets.fs,
-    "ubay:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/mnt/ultrabay used_p}%".. "</span>|", 60)
+    -- fswidget = wibox.widget.textbox()
+    -- vicious.register(fswidget, vicious.widgets.fs,
+    -- "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>|", 60)
+    -- ubaywidget = wibox.widget.textbox()
+    -- vicious.register(ubaywidget, vicious.widgets.fs,
+    -- "ubay:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/mnt/ultrabay used_p}%".. "</span>|", 60)
     -- }}}
 
     -- {{{ Network usage
@@ -169,6 +130,22 @@ for s = 1, screen.count() do
         end, 1)
     -- }}}
 
+    -- {{{ Fan Speed Widget
+    fanwidget = wibox.widget.textbox()
+    function getFanStatus() 
+        local handle = io.popen("cat /proc/acpi/ibm/fan | grep level: | awk 'NF>1{print $NF}'")
+        local result = handle:read()
+        handle:close()
+        return 'fan:' .. "<span color='" .. beautiful.fg_focus .. "'>"..result.."</span>|"
+    end
+
+    mytimer = timer({ timeout = 1 })
+    mytimer:connect_signal("timeout", function()
+        fanwidget:set_markup(getFanStatus())
+    end)
+    mytimer:start()
+    --}}}
+
     -- Create the Topbox
     mytopbox[s] = awful.wibox({ position = "top", screen = s })
     -- Create Bottombox
@@ -189,11 +166,12 @@ for s = 1, screen.count() do
     bottom_layout_right:add(mpdwidget)
     bottom_layout_right:add(mywifissid)
     bottom_layout_right:add(netwidget)
-    bottom_layout_right:add(fswidget)
-    bottom_layout_right:add(ubaywidget)
+    -- bottom_layout_right:add(fswidget)
+    -- bottom_layout_right:add(ubaywidget)
     bottom_layout_right:add(ramwidget)
     bottom_layout_right:add(cpuwidget)
     bottom_layout_right:add(thermalwidget)
+    bottom_layout_right:add(fanwidget)
     bottom_layout_right:add(battext)
 
     -- Bring Top Box Together
