@@ -12,7 +12,7 @@ vicious         = require("vicious")
 configpath      = os.getenv("HOME").."/.config/awesome/"
 iconpath        = configpath.."icons/"
 webbrowser      = "firefox"
-filebrowser     = "doublecmd"
+filebrowser     = "nautilus"
 terminal        = "/usr/bin/urxvt"
 editor          = os.getenv("EDITOR") or "editor"
 editor_cmd      = terminal .. " -e " .. editor
@@ -24,7 +24,7 @@ beautiful.init(configpath.."/themes/zenburn-luxick/theme.lua")
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    vain.layout.uselesstile,
+    --vain.layout.uselesstile,
     awful.layout.suit.tile,
     awful.layout.suit.max,
     --awful.layout.suit.floating
@@ -32,13 +32,13 @@ layouts =
 
 -- Tags
 tags = {
-    main = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "mpd", "term", "www", "mail"},
-    others = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ",}
+    main = {1, 2, 3, 4, 5, "im", "term", "www", "mail"},
+    others = {1, 2, 3, 4}
 }
 -- Settings for the main screen
 tags[1] = awful.tag(tags.main, 1, layouts[1])
 
-awful.layout.set(vain.layout.uselessfair, tags[1][7])
+awful.layout.set(vain.layout.termfair, tags[1][7])
 awful.tag.setnmaster(2, tags[1][7])
 awful.tag.setncol(2, tags[1][7])
 

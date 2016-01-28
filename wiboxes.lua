@@ -11,7 +11,7 @@ for s = 1, screen.count() do
 
     -- Top Wibox
     -- Create a textclock widget
-    mytextclock = awful.widget.textclock("|%H:%M " .. '<span color="' .. beautiful.fg_focus .. '">%d/%m/%y</span>|', 10)
+    mytextclock = awful.widget.textclock("  %H:%M "..'<span color="'..beautiful.fg_focus..'">%d/%m/%y</span> ', 10)
 
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -34,28 +34,45 @@ for s = 1, screen.count() do
     -- {{{CPU and RAM Widgets
     cpuwidget = wibox.widget.textbox()
     vicious.register(cpuwidget, vicious.widgets.cpu,
-        "cpu:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>|', 3)
+        "cpu:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>  ', 3)
 
     ramwidget = wibox.widget.textbox()
     vicious.register(ramwidget, vicious.widgets.mem,
-        "ram:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>|', 3)
+        "ram:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>  ', 3)
 
     thermalwidget  = wibox.widget.textbox()
     vicious.register(thermalwidget, vicious.widgets.thermal,
-    "temp:" .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span>|', 3, "thermal_zone0")
+    "temp:" .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span>  ', 3, "thermal_zone0")
     -- }}}
 
+    fanwidget = wibox.widget.textbox()
+    vicious.register(fanwidget, vicious.contrib.fan, 
+        "fan: " .. "<span color='" .. beautiful.fg_focus .. "'>$3</span>  " ..
+        "rpm: " .. "<span color='" .. beautiful.fg_focus .. "'>$2</span>  ", 1)
+
+    -- {{{ IP Addresses 
+    -- ipwidget = wibox.widget.textbox()
+    -- mytimer:connect_signal("timeout", function()
+    --     internal = execute_command("dig +short myip.opendns.com @resolver1.opendns.com")
+    --     if (internal == nil or internal == '') then
+    --         ipwidget:set_markup("")
+    --     else
+    --         ipwidget:set_markup('ip:' .. "<span color='" .. beautiful.fg_focus .. "'>"..internal.."</span>  ")
+    --     end
+    -- end)
+    -- }}}
+    
     -- Battery Widget
     battext = wibox.widget.textbox()
     vicious.register(battext, vicious.widgets.bat,
         function(widget, args)
             if args[3] == "N/A" then
-                return 'batt:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' .. '|'
+                return 'batt:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' .. ' '
             elseif args[2] == "100" then
-                return args[1] .. '|'
+                return args[1] .. ' '
             else
-                return 'bat:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' ..'|'
-                        .. args[1]..'<span color="' .. beautiful.fg_focus .. '">'..args[3]..'</span>' .. '|'
+                return 'bat:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' ..' '
+                        .. args[1]..'<span color="' .. beautiful.fg_focus .. '">'..args[3]..'</span>' .. ' '
             end
         end, 1, "BAT0")
 
@@ -66,25 +83,26 @@ for s = 1, screen.count() do
             if args["{ssid}"] == "N/A" or not iswificarrier then
                 return ''
             else
-                return 'ssid:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>|"
-            end
+                return 'ssid:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{ssid}"] .. "</span>  "
+             end
         end, 3, "wlp3s0")
 
     -- {{{ File System Widget
-    -- fswidget = wibox.widget.textbox()
-    -- vicious.register(fswidget, vicious.widgets.fs,
-    -- "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>|", 60)
-    -- ubaywidget = wibox.widget.textbox()
-    -- vicious.register(ubaywidget, vicious.widgets.fs,
-    -- "ubay:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/mnt/ultrabay used_p}%".. "</span>|", 60)
+    fswidget = wibox.widget.textbox()
+    vicious.register(fswidget, vicious.widgets.fs,
+    "disk:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/ used_p}%".. "</span>  ", 60)
+    ubaywidget = wibox.widget.textbox()
+    vicious.register(ubaywidget, vicious.widgets.fs,
+    "ubay:" .. "<span color='" .. beautiful.fg_focus .. "'>" .. "${/mnt/ultrabay used_p}%".. "</span>  ", 60)
     -- }}}
 
     -- {{{ Network usage
     function print_net(name, down, up)
         return name .. ':' ..'↓<span color="'
         .. beautiful.fg_focus ..'">' .. down .. ' MB/s'.. '</span> ↑<span color="'
-        .. beautiful.fg_focus ..'">' .. up  .. ' MB/s'.. '</span>|'
+        .. beautiful.fg_focus ..'">' .. up  .. ' MB/s'.. '</span>  '
     end
+
     -- Initialize widget
    netwidget = wibox.widget.textbox()
     -- Register widget
@@ -101,13 +119,17 @@ for s = 1, screen.count() do
         local up = ethup
         local ifname = "wired"
         iswificarrier = false
-        if (not ethactive and wifiactive) then
-            down = wifidown
-            up = wifiup
-            ifname = "wifi"
-            iswificarrier = true
+        if (execute_command("dig +short myip.opendns.com @resolver1.opendns.com") ~= '') then
+            if (not ethactive and wifiactive) then
+                down = wifidown
+                up = wifiup
+                ifname = "wifi"
+                iswificarrier = true
+            end
+            return print_net(ifname, down, up)
+        else 
+            return ""
         end
-        return print_net(ifname, down, up)
     end, 3)
     -- }}}
 
@@ -117,34 +139,18 @@ for s = 1, screen.count() do
     vicious.register(mpdwidget, vicious.widgets.mpd,
         function (widget, args)
             if args["{state}"] == "N/A" then
-                return "|"
+                return " "
             end
             if args["{state}"] == "Stop" then
-                return "|"
+                return ""
             elseif args["{Artist}"] == "N/A" then
-                return '|mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Title}"] .. "</span>|"
+                return ' mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Title}"] .. "</span>  "
             else
-                return '|mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
-                .. args["{Title}"] .. "</span>|"
+                return ' mpd:' .. "<span color='" .. beautiful.fg_focus .. "'>" .. args["{Artist}"]..' - '
+                    .. args["{Title}"] .. "</span>  "
             end
         end, 1)
     -- }}}
-
-    -- {{{ Fan Speed Widget
-    fanwidget = wibox.widget.textbox()
-    function getFanStatus() 
-        local handle = io.popen("cat /proc/acpi/ibm/fan | grep level: | awk 'NF>1{print $NF}'")
-        local result = handle:read()
-        handle:close()
-        return 'fan:' .. "<span color='" .. beautiful.fg_focus .. "'>"..result.."</span>|"
-    end
-
-    mytimer = timer({ timeout = 1 })
-    mytimer:connect_signal("timeout", function()
-        fanwidget:set_markup(getFanStatus())
-    end)
-    mytimer:start()
-    --}}}
 
     -- Create the Topbox
     mytopbox[s] = awful.wibox({ position = "top", screen = s })
@@ -152,38 +158,41 @@ for s = 1, screen.count() do
     mybottombox[s] = awful.wibox({ position = "bottom", screen = s})
 
     -- Top Boxes
-    local top_layout_left = wibox.layout.fixed.horizontal()
-    if s == 1 then top_layout_left:add(wibox.widget.textbox("|")) end
-    if s == 1 then top_layout_left:add(wibox.widget.systray()) end
-    top_layout_left:add(mytextclock)
+    local top_right = wibox.layout.fixed.horizontal()
+    if s == 1 then top_right:add(wibox.widget.textbox(" ")) end
+    if s == 1 then top_right:add(wibox.widget.systray()) end
+    top_right:add(mytextclock)
+
+    local top_left = wibox.layout.fixed.horizontal()
+    -- top_left:add(mylayoutbox[s])
+    top_left:add(mypromptbox[s])
 
     -- Bottom Boxes
-    local bottom_layout_left = wibox.layout.fixed.horizontal()
-    bottom_layout_left:add(mytaglist[s])
-    bottom_layout_left:add(mypromptbox[s])
+    local bottom_left = wibox.layout.fixed.horizontal()
+    bottom_left:add(mytaglist[s])
 
-    local bottom_layout_right = wibox.layout.fixed.horizontal()
-    bottom_layout_right:add(mpdwidget)
-    bottom_layout_right:add(mywifissid)
-    bottom_layout_right:add(netwidget)
-    -- bottom_layout_right:add(fswidget)
-    -- bottom_layout_right:add(ubaywidget)
-    bottom_layout_right:add(ramwidget)
-    bottom_layout_right:add(cpuwidget)
-    bottom_layout_right:add(thermalwidget)
-    bottom_layout_right:add(fanwidget)
-    bottom_layout_right:add(battext)
+    local bottom_right = wibox.layout.fixed.horizontal()
+    bottom_right:add(mpdwidget)
+    bottom_right:add(mywifissid)
+    bottom_right:add(netwidget)
+    bottom_right:add(fswidget)
+    bottom_right:add(ubaywidget)
+    bottom_right:add(ramwidget)
+    bottom_right:add(cpuwidget)
+    bottom_right:add(thermalwidget)
+    bottom_right:add(fanwidget)
+    bottom_right:add(battext)
 
     -- Bring Top Box Together
     local top_layout = wibox.layout.align.horizontal()
-    --top_layout:set_left(mylayoutbox[s])
+    top_layout:set_left(top_left)
     top_layout:set_middle(mytasklist[s])
-    top_layout:set_right(top_layout_left)
+    top_layout:set_right(top_right)
 
     -- Bring Bottom Box Together
     local bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_left(bottom_layout_left)
-    if s == 1 then bottom_layout:set_right(bottom_layout_right) end
+    bottom_layout:set_left(bottom_left)
+    if s == 1 then bottom_layout:set_right(bottom_right) end
 
     -- Add widgets to the Topbox
     mytopbox[s]:set_widget(top_layout)

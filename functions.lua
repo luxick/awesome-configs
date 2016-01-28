@@ -138,45 +138,11 @@ function xrandr()
 end
 -- }}}
 
-
-function sysbox()
-   -- Gather Infos
-   local ostmp = wibox.widget.textbox()
-   vicious.register(ostmp, vicious.widgets.os,
-         "$1 $2 $3 $4 $5 $6")
-
-   osinfo = ostmp.text
-
-   naughty.notify({title="System Information",
-            position="bottom_right",
-            timeout=-1,
-            ontop=true,
-            font = "Ubuntu 10",
-            screen = mouse.screen,
-            text=osinfo})
-end
-
--- ips widget: show internal and external ips as a tooltip on
--- an icon.
-
--- function to call bash script and return its output.
-function get_ips()
-    local fd = io.popen("/home/luxick/bin/get_ip")
-    local str = fd:read("*all")
-    return str 
-end
-
-function getinfo()
-   local str = ""
-
-   return str
-end
-
 function update_wallpaper()
   local f = io.open(os.getenv("HOME")..'/.config/awesome/wall.txt', "r")
   local wallpaper = f:read("*all")
   f:close()
-  awful.util.spawn_with_shell("feh --bg-scale "..wallpaper)
+  awful.util.spawn_with_shell("feh --bg-fill "..wallpaper)
 end
 
 function new_wallpaper(path_to_new_wallpaper)
@@ -185,4 +151,16 @@ function new_wallpaper(path_to_new_wallpaper)
   io.write(path_to_new_wallpaper)
   f:close()
   update_wallpaper()
+end
+
+-- Execute command and return its output. You probably won't only execute commands with one
+-- line of output
+function execute_command(command)
+    local fh = io.popen(command)
+    local str = ""
+    for i in fh:lines() do
+        str = str .. i
+    end
+    io.close(fh)
+    return str
 end

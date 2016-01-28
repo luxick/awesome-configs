@@ -56,7 +56,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Shift"   }, "p", 
         function () 
-            new_wallpaper(os.getenv("HOME").."/images/wallpapers/2015/0a931a48bbe3e4fc6c7ffb7b74dd701a.jpg")
+            new_wallpaper(os.getenv("HOME").."/images/wallpapers/2015/lainpixel2.png")
         end),
     awful.key({ modkey, "Control" }, "p", 
         function () 
@@ -82,7 +82,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadtoggle") end),
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("dm-tool lock") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn("fanspeed") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn("gksu fanspeed") end),
     awful.key({modkey,          }, "F2", function () awful.util.spawn("dm-tool lock") end),
     awful.key({}, "XF86Display", xrandr),
     awful.key({ modkey,         }, "F7", xrandr),

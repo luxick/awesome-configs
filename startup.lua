@@ -22,11 +22,11 @@ end
 -- Put everything here, that shoud be executed at awesome startup
 run_once("mpd")
 run_once("compton")
-run_once("keepassx")
+run_once("keepassx2")
 run_once("owncloud")
 run_once("telegram")
 run_once("nm-applet")
-run_once("thunderbird")
+run_once("thunderbird-beta")
 run_once("firefox")
 --run_once("pidgin")
 run_once("xrdb -merge .Xresources")

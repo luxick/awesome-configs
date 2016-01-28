@@ -13,6 +13,8 @@ awful.rules.rules = {
       properties = { floating = false, tag = tags[1][9] } },
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][9] } },
+    { rule = { class = "Telegram" },
+      properties = { tag = tags[1][6] } },
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][8] } },
 }
