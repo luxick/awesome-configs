@@ -20,7 +20,7 @@ theme.useless_gap_width = 10
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
 theme.fg_focus  = "#00FFFF"
-theme.fg_urgent = "#CC9393"
+theme.fg_urgent = "#F71E1E"
 theme.bg_urgent = "#3F3F3F"
 
 theme.bg_normal = "#202020"

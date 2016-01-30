@@ -34,21 +34,45 @@ for s = 1, screen.count() do
     -- {{{CPU and RAM Widgets
     cpuwidget = wibox.widget.textbox()
     vicious.register(cpuwidget, vicious.widgets.cpu,
-        "cpu:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>  ', 3)
+        function(widget, args)
+            local color
+            if args[1] >= 85 then
+                color = beautiful.fg_urgent
+            else
+                color = beautiful.fg_focus
+            end
+            return "cpu:" .. '<span color="' .. color .. '">' .. args[1] .. '%</span>  '
+        end, 3)
 
     ramwidget = wibox.widget.textbox()
     vicious.register(ramwidget, vicious.widgets.mem,
-        "ram:" .. '<span color="' .. beautiful.fg_focus .. '">$1%</span>  ', 3)
+        function(widget, args)
+            local color
+            if args[1] >= 85 then
+                color = beautiful.fg_urgent
+            else
+                color = beautiful.fg_focus
+            end
+            return "ram:" .. '<span color="' .. color .. '">' .. args[1] .. '%</span>  '
+        end, 3)
 
     thermalwidget  = wibox.widget.textbox()
     vicious.register(thermalwidget, vicious.widgets.thermal,
-    "temp:" .. '<span color="' .. beautiful.fg_focus .. '">$1°C</span>  ', 3, "thermal_zone0")
+        function(widget, args)
+            local color
+            if args[1] >= 80 then
+                color = beautiful.fg_urgent
+            else
+                color = beautiful.fg_focus
+            end
+            return "temp:" .. '<span color="' .. color .. '">' .. args[1] .. '°C</span>  '
+        end, 3, "thermal_zone0")
     -- }}}
 
     fanwidget = wibox.widget.textbox()
     vicious.register(fanwidget, vicious.contrib.fan, 
-        "fan: " .. "<span color='" .. beautiful.fg_focus .. "'>$3</span>  " ..
-        "rpm: " .. "<span color='" .. beautiful.fg_focus .. "'>$2</span>  ", 1)
+        "fan:" .. "<span color='" .. beautiful.fg_focus .. "'>$3</span>  " ..
+        "rpm:" .. "<span color='" .. beautiful.fg_focus .. "'>$2</span>  ", 1)
 
     -- {{{ IP Addresses 
     -- ipwidget = wibox.widget.textbox()
@@ -66,13 +90,19 @@ for s = 1, screen.count() do
     battext = wibox.widget.textbox()
     vicious.register(battext, vicious.widgets.bat,
         function(widget, args)
+            local color
+            if args[2] <= 10 then
+                color = beautiful.fg_urgent
+            else
+                color = beautiful.fg_focus
+            end
             if args[3] == "N/A" then
-                return 'batt:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' .. ' '
+                return 'batt:<span color="' .. color .. '">'.. args[2]..'%</span>' .. ' '
             elseif args[2] == "100" then
                 return args[1] .. ' '
             else
-                return 'bat:<span color="' .. beautiful.fg_focus .. '">'.. args[2]..'%</span>' ..' '
-                        .. args[1]..'<span color="' .. beautiful.fg_focus .. '">'..args[3]..'</span>' .. ' '
+                return 'bat:<span color="' .. color .. '">'.. args[2]..'%</span>' ..' '
+                        .. args[1]..'<span color="' .. color .. '">'..args[3]..'</span>' .. ' '
             end
         end, 1, "BAT0")
 
