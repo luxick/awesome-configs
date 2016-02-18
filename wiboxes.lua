@@ -194,7 +194,7 @@ for s = 1, screen.count() do
     top_right:add(mytextclock)
 
     local top_left = wibox.layout.fixed.horizontal()
-    -- top_left:add(mylayoutbox[s])
+    top_left:add(mylayoutbox[s])
     top_left:add(mypromptbox[s])
 
     -- Bottom Boxes

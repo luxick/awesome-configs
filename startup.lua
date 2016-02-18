@@ -19,25 +19,24 @@ do
         in_error = false
     end)
 end
--- Put everything here, that shoud be executed at awesome startup
-run_once("mpd")
-run_once("compton")
-run_once("keepassx2")
-run_once("owncloud")
-run_once("telegram")
-run_once("nm-applet")
-run_once("thunderbird-beta")
-run_once("firefox")
---run_once("pidgin")
-run_once("xrdb -merge .Xresources")
-run_once("volumeicon")
--- prevent Java Swing applications from fucking up because of tiling
-run_once("wmname LG3D")
--- compose Unicode using right ctrl key
-run_once("setxkbmap -option compose:rctrl")
-run_once("xrandr --output HDMI3 --primary")
-run_once("disable_dpms")
-run_once("redshift-gtk")
--- Disable Touchpad by Default
--- run_once("touchpadtoggle")
+
+awful.util.spawn_with_shell("xrdb -merge .Xresources")
+awful.util.spawn_with_shell("wmname LG3D")
+awful.util.spawn_with_shell("setxkbmap -option compose:rctrl")
+awful.util.spawn_with_shell("xrandr --output HDMI3 --primary")
+awful.util.spawn_with_shell("disable_dpms")
+awful.util.spawn_with_shell("touchpadcontrol deactivate")
+
+
+awful.util.spawn_with_shell("run_once mpd")
+awful.util.spawn_with_shell("run_once compton")
+awful.util.spawn_with_shell("run_once keepassx2")
+awful.util.spawn_with_shell("run_once owncloud")
+awful.util.spawn_with_shell("run_once telegram")
+awful.util.spawn_with_shell("run_once nm-applet")
+awful.util.spawn_with_shell("run_once thunderbird-beta")
+awful.util.spawn_with_shell("run_once firefox")
+awful.util.spawn_with_shell("run_once volumeicon")
+awful.util.spawn_with_shell("run_once redshift-gtk")
+
 update_wallpaper()

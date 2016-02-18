@@ -14,6 +14,7 @@ iconpath        = configpath.."icons/"
 webbrowser      = "firefox"
 filebrowser     = "nautilus"
 terminal        = "/usr/bin/urxvt"
+-- terminal        = "terminatior"
 editor          = os.getenv("EDITOR") or "editor"
 editor_cmd      = terminal .. " -e " .. editor
 vain.widgets.terminal = terminal
@@ -27,7 +28,7 @@ layouts =
     --vain.layout.uselesstile,
     awful.layout.suit.tile,
     awful.layout.suit.max,
-    --awful.layout.suit.floating
+    awful.layout.suit.floating
 }
 
 -- Tags
