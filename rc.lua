@@ -59,10 +59,10 @@ for s = 2, screen.count() do
 end
 
 require("functions")
+require("rulesandsignals")
 require("wiboxes")
 require("keybindings")
 require("startup")
-require("rulesandsignals")
 
 -- Set keys
 root.keys(globalkeys)

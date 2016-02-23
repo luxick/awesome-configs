@@ -20,6 +20,7 @@ do
     end)
 end
 
+
 awful.util.spawn_with_shell("xrdb -merge .Xresources")
 awful.util.spawn_with_shell("wmname LG3D")
 awful.util.spawn_with_shell("setxkbmap -option compose:rctrl")
@@ -30,7 +31,6 @@ awful.util.spawn_with_shell("touchpadcontrol deactivate")
 
 awful.util.spawn_with_shell("run_once mpd")
 awful.util.spawn_with_shell("run_once compton")
-awful.util.spawn_with_shell("run_once keepassx2")
 awful.util.spawn_with_shell("run_once owncloud")
 awful.util.spawn_with_shell("run_once telegram")
 awful.util.spawn_with_shell("run_once nm-applet")
