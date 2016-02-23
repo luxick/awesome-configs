@@ -1,1 +1,1 @@
-/home/luxick/images/wallpapers/2015/lainpixel2.png
+/home/luxick/.config/awesome/themes/zenburn-luxick/zenburn-background.png

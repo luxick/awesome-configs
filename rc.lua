@@ -20,6 +20,8 @@ editor_cmd      = terminal .. " -e " .. editor
 vain.widgets.terminal = terminal
 
 beautiful.init(configpath.."/themes/zenburn-luxick/theme.lua")
+--beautiful.init(configpath.."/themes/zenburn/theme.lua")
+
 
 
 -- Table of layouts to cover with awful.layout.inc, order matters.

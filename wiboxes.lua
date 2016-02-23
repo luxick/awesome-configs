@@ -71,8 +71,15 @@ for s = 1, screen.count() do
 
     fanwidget = wibox.widget.textbox()
     vicious.register(fanwidget, vicious.contrib.fan, 
-        "fan:" .. "<span color='" .. beautiful.fg_focus .. "'>$3</span>  " ..
-        "rpm:" .. "<span color='" .. beautiful.fg_focus .. "'>$2</span>  ", 1)
+        function(widget, args)
+            local color
+            if args[3] == "disengaged" then
+                color = beautiful.fg_urgent
+            else
+                color = beautiful.fg_focus
+            end
+            return "fan:" .. "<span color='" .. color .. "'>" .. args[3] .. "</span>  "
+        end, 1)
 
     -- {{{ IP Addresses 
     -- ipwidget = wibox.widget.textbox()
