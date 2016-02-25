@@ -81,7 +81,7 @@ globalkeys = awful.util.table.join(
     -- Starting programs, using special keys
     awful.key({}, "Print", function () awful.util.spawn("gnome-screenshot --interactive") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadcontrol toggle") end),
-    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("dm-tool lock") end),
+    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -c 000000") end),
     awful.key({}, "XF86Launch1", function () awful.util.spawn("gksu fanspeed") end),
     awful.key({modkey,          }, "F2", function () awful.util.spawn("dm-tool lock") end),
     awful.key({}, "XF86Display", xrandr),

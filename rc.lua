@@ -59,9 +59,9 @@ for s = 2, screen.count() do
 end
 
 require("functions")
+require("keybindings")
 require("rulesandsignals")
 require("wiboxes")
-require("keybindings")
 require("startup")
 
 -- Set keys
