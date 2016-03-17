@@ -82,8 +82,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Print", function () awful.util.spawn("gnome-screenshot --interactive") end),
     awful.key({}, "XF86TouchpadToggle", function () awful.util.spawn("touchpadcontrol toggle") end),
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("i3lock -c 000000") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn("gksu fanspeed") end),
-    awful.key({modkey,          }, "F2", function () awful.util.spawn("dm-tool lock") end),
+    awful.key({modkey,          }, "F2", function () awful.util.spawn("i3lock -c 000000") end),
     awful.key({}, "XF86Display", xrandr),
     awful.key({ modkey,         }, "F7", xrandr),
     awful.key({ modkey, "Shift" }, "w", function () awful.util.spawn(webbrowser) end),
@@ -115,6 +114,11 @@ clientkeys = awful.util.table.join(
             c.maximized_vertical   = not c.maximized_vertical
         end)
 )
+clientbuttons = awful.util.table.join(
+    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+    awful.button({ modkey }, 1, awful.mouse.client.move),
+    awful.button({ modkey }, 3, awful.mouse.client.resize))
+
 
 -- Compute the maximum number of digit we need, limited to 9
 keynumber = 0
