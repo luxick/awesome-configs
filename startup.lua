@@ -26,7 +26,7 @@ awful.util.spawn_with_shell("wmname LG3D")
 awful.util.spawn_with_shell("setxkbmap -option compose:rctrl")
 awful.util.spawn_with_shell("xrandr --output HDMI3 --primary")
 awful.util.spawn_with_shell("disable_dpms")
-awful.util.spawn_with_shell("touchpadcontrol disable")
+awful.util.spawn_with_shell("touchpadcontrol deactivate")
 
 
 awful.util.spawn_with_shell("run_once mpd")
